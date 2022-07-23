@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { VStack, Heading, Icon, useTheme } from 'native-base';
-import { Envelope, Key } from 'phosphor-react-native';
+import { Envelope, Key, GithubLogo, GoogleChromeLogo, SignIn as SingInIcon  } from 'phosphor-react-native';
 
 import Logo from '../assets/logo_primary.svg';
 import { Button } from '../components/Button';
@@ -35,7 +35,11 @@ export function SignIn(){
                 InputLeftElement={< Icon as={<Key color={colors.gray[300]}/>} ml={4}/>}
             />
 
-            <Button title='Entrar' w="full"/>
+            <Button title='Entrar' w="full" mb={8} rightIcon={<Icon as={<SingInIcon color={colors.white} size={24} />} ml={2}/>} size="sm" />
+
+            {/* <Button title='Entrar com Google' bg ="blue.300" w="full" mb={2} leftIcon={<Icon as={<GoogleChromeLogo  color={colors.white} size={24} />} ml={2}/>}/>
+
+            <Button title='Entrar com Git' w="full" bg ="blue.300" leftIcon={<Icon as={<GithubLogo color={colors.white} size={24} />} ml={2}/>}/> */}
         </VStack>
     )
 }
