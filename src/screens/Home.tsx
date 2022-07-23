@@ -28,6 +28,7 @@ export function Home() {
       patrimony: "123456",
       when: "18/07/2022 às 10:00",
       status: "open",
+      type: "problem"
     },
   ]);
 

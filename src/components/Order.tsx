@@ -13,12 +13,15 @@ import {
   Hourglass,
   CircleWavyCheck,
   Warning,
+  Question,
+  Wrench,
 } from "phosphor-react-native";
 
 export type OrdersPorps = {
   id: string;
   patrimony: string;
   when: string;
+  type: "problem" | "doubt" | "support";
   status: "open" | "closed";
 };
 
@@ -33,7 +36,7 @@ export function Order({ data, ...rest }: Props) {
     data.status === "open" ? colors.secondary[700] : colors.green[300];
 
   return (
-    <Pressable {...rest} >
+    <Pressable {...rest}>
       <HStack
         bg="gray.600"
         mb={4}
@@ -44,12 +47,27 @@ export function Order({ data, ...rest }: Props) {
       >
         <Box h="full" w={2} bg={statusColor} />
         <VStack flex={1} my={5} ml={5}>
-          <HStack alignItems="center" >
-            <Warning color={colors.red[300]} size={16} />
-            <Text color={colors.gray[200]}>{"  "}Problema </Text>
+          <HStack alignItems="center">
+            {data.type === "problem" ? (
+              <Warning color={colors.red[400]} size={16} />
+            ) : data.type === "doubt" ? (
+              <Question color={colors.orange[300]} size={16} />
+            ) : (
+              <Wrench color={colors.green[300]} size={16} />
+            )}
+
+            <Text color={colors.gray[200]}>
+              {"  "}
+              {data.type === "problem"
+                ? "Problema"
+                : data.type === "doubt"
+                ? "Dúvida"
+                : "Suporte"}{" "}
+            </Text>
           </HStack>
           <Text color="white" fontSize="md">
-            {" "}Patrimônio {data.patrimony}
+            {" "}
+            Patrimônio {data.patrimony}
           </Text>
           <HStack>
             <ClockAfternoon size={15} color={colors.gray[300]} />
