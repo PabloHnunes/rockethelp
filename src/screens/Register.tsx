@@ -24,65 +24,7 @@ export function Register() {
   return (
     <VStack flex={1} p={6} bg="gray.600">
       <Header title="Nova solicitação" />
-      <HStack
-        mb={2}
-        alignItems="center"
-        justifyContent="space-around"
-        rounded="sm"
-        h={55}
-      >
-        <Options
-          onPress={() => setTypeSelected("problem")}
-          icon={
-            <Icon
-              as={
-                <Warning
-                  size={24}
-                  color={
-                    typeSelected === "problem" ? colorType : colors.gray[100]
-                  }
-                />
-              }
-            />
-          }
-          borderColor={typeSelected === "problem" ? colorType : "gray.300"}
-          type="problem"
-        />
-        <Options
-          onPress={() => setTypeSelected("doubt")}
-          icon={
-            <Icon
-              as={
-                <Question
-                  size={24}
-                  color={
-                    typeSelected === "doubt" ? colorType : colors.gray[100]
-                  }
-                />
-              }
-            />
-          }
-          borderColor={typeSelected === "doubt" ? colorType : "gray.300"}
-          type="doubt"
-        />
-        <Options
-          onPress={() => setTypeSelected("support")}
-          icon={
-            <Icon
-              as={
-                <Wrench
-                  size={24}
-                  color={
-                    typeSelected === "support" ? colorType : colors.gray[100]
-                  }
-                />
-              }
-            />
-          }
-          borderColor={typeSelected === "support" ? colorType : "gray.300"}
-          type="support"
-        />
-      </HStack>
+      <Options type={typeSelected} setTypeSelected={setTypeSelected}/>
       <HStack
         mb={2}
         alignItems="center"
@@ -91,7 +33,6 @@ export function Register() {
         h={55}
       >
         <Box
-
           alignItems="center"
           p="2"
           _text={{
