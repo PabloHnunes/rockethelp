@@ -59,17 +59,24 @@ export function Home() {
     const subcribe = firestore()
       .collection("orders")
       .where("status", "==", statusSelected)
-      .where("type", "in", typeSelected === "all" ? ["problem", "doubt", "support"] : [ typeSelected ])
+      .where(
+        "type",
+        "in",
+        typeSelected === "all"
+          ? ["problem", "doubt", "support"]
+          : [typeSelected]
+      )
       .onSnapshot((snapshot) => {
         const data = snapshot.docs.map((doc) => {
-          const { patrimony, description, type, status, created_at } = doc.data();
+          const { patrimony, description, type, status, created_at } =
+            doc.data();
           return {
             id: doc.id,
             patrimony,
             description,
             type,
             status,
-            when: dateFormat(created_at)
+            when: dateFormat(created_at),
           };
         });
         setOrders(data);
@@ -107,7 +114,7 @@ export function Home() {
           <Heading color="gray.100">Solicitações</Heading>
           <Text color="gray.200">{orders.length}</Text>
         </HStack>
-        <HStack space={3} mb={8}>
+        <HStack space={3} mb={2}>
           <Filter
             type="open"
             title="em andamento"
@@ -127,6 +134,25 @@ export function Home() {
           setTypeSelected={setTypeSelected}
           isFilter
         />
+        <VStack
+          w="full"
+          mb={2}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          {orders.length > 0 && (
+            <Text color="gray.100">
+              {" "}
+              {typeSelected === "problem"
+                ? "Problema"
+                : typeSelected === "doubt"
+                ? "Dúvida"
+                : typeSelected === "support"
+                ? "Suporte"
+                : "Todos"}{" "}
+            </Text>
+          )}
+        </VStack>
         {isLoading ? (
           <Loading />
         ) : (
@@ -144,6 +170,13 @@ export function Home() {
                 <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
                   Você ainda não possui {"\n"}
                   solicitações{" "}
+                  {typeSelected === "problem"
+                    ? "de problema"
+                    : typeSelected === "doubt"
+                    ? "de dúvida"
+                    : typeSelected === "support"
+                    ? "de suporte"
+                    : ""}{" "}
                   {statusSelected === "open" ? "em aberto" : "finalizados"}
                 </Text>
               </Center>
