@@ -1,23 +1,25 @@
 import { HStack, Icon, IconButton, useTheme } from "native-base";
-import { Question, Warning, Wrench } from "phosphor-react-native";
+import { Question, Warning, Wrench,TextAlignJustify } from "phosphor-react-native";
 
 type Props = {
-  type: "problem" | "doubt" | "support";
-  setTypeSelected: (t: "problem" | "doubt" | "support") =>  void;
+  isFilter?: boolean;
+  type: "all" | "problem" | "doubt" | "support";
+  setTypeSelected: (t: "all" | "problem" | "doubt" | "support") => void;
 };
 
-export function Options({ type, setTypeSelected }: Props) {
-
+export function Options({ isFilter ,type, setTypeSelected }: Props) {
   const { colors } = useTheme();
 
   const colorType =
     type === "problem"
       ? colors.red[400]
       : type === "doubt"
-      ? colors.orange[300]
-      : colors.green[300];
+      ? colors.orange[300] 
+      : type === "support" 
+      ? colors.green[300]
+      : colors.purple[500];
 
-  function handleSetType(newType: "problem" | "doubt" | "support"){
+  function handleSetType(newType: "all" | "problem" | "doubt" | "support") {
     setTypeSelected(newType);
   }
 
@@ -29,10 +31,29 @@ export function Options({ type, setTypeSelected }: Props) {
       rounded="sm"
       h={55}
     >
+      { isFilter && 
+        (<IconButton
+          bg="gray.500"
+          borderRadius="full"
+          borderWidth={1}
+          onPress={() => handleSetType("all")}
+          icon={
+            <Icon
+              as={
+                <TextAlignJustify
+                  size={24}
+                  color={ type === "all" ? colorType : colors.gray[100]}
+                />
+              }
+            />
+          }
+          borderColor={ type === "all" ? colorType : colors.gray[100]}
+        />)
+      }
       <IconButton
         bg="gray.500"
         borderRadius="full"
-        borderWidth={0.5}
+        borderWidth={1}
         onPress={() => handleSetType("problem")}
         icon={
           <Icon
@@ -49,7 +70,7 @@ export function Options({ type, setTypeSelected }: Props) {
       <IconButton
         bg="gray.500"
         borderRadius="full"
-        borderWidth={0.5}
+        borderWidth={1}
         onPress={() => handleSetType("doubt")}
         icon={
           <Icon
@@ -66,7 +87,7 @@ export function Options({ type, setTypeSelected }: Props) {
       <IconButton
         bg="gray.500"
         borderRadius="full"
-        borderWidth={0.5}
+        borderWidth={1}
         onPress={() => handleSetType("support")}
         icon={
           <Icon

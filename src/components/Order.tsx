@@ -21,7 +21,7 @@ export type OrdersPorps = {
   id: string;
   patrimony: string;
   when: string;
-  type: "problem" | "doubt" | "support";
+  type: "all" | "problem" | "doubt" | "support";
   status: "open" | "closed";
 };
 
