@@ -113,4 +113,8 @@ buck-out/
 web-build/
 dist/
 
+# Credenciais
+google-services.json
+GoogleService-Info.plist
+
 # @end expo-cli
